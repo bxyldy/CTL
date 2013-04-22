@@ -147,7 +147,8 @@ class Interpreter
     static std::vector<std::string> modulePaths();
     static void setModulePaths (const std::vector<std::string> &newModPaths);
 
-
+    bool            moduleIsLoadedInternal
+                    (const std::string &moduleName) const;
   protected:
 
     Interpreter ();
@@ -163,8 +164,6 @@ class Interpreter
     void			loadModuleRecursive
 				    (const std::string &moduleName);
 
-    bool			moduleIsLoadedInternal
-				    (const std::string &moduleName) const;
 
     virtual FunctionCallPtr	newFunctionCallInternal 
                                     (const SymbolInfoPtr info,
