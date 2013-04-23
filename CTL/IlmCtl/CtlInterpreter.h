@@ -149,6 +149,19 @@ class Interpreter
 
     bool            moduleIsLoadedInternal
                     (const std::string &moduleName) const;
+	struct Data;
+
+	Data *	_data;
+
+	virtual LContext *		newLContext
+				    (std::istream &file,
+				     Module *module,
+				     SymbolTable &symtab) const = 0;
+
+	virtual Module *		newModule
+				    (const std::string &moduleName,
+				     const std::string &fileName) = 0; 
+
   protected:
 
     Interpreter ();
@@ -169,18 +182,9 @@ class Interpreter
                                     (const SymbolInfoPtr info,
                                      const std::string &functionName) = 0;
 
-    virtual Module *		newModule
-				    (const std::string &moduleName,
-				     const std::string &fileName) = 0;
+    
 
-    virtual LContext *		newLContext
-				    (std::istream &file,
-				     Module *module,
-				     SymbolTable &symtab) const = 0;
-
-    struct Data;
-
-    Data *	_data;
+    
 };
 
 
