@@ -257,7 +257,7 @@ Interpreter::findModule (const string& moduleName)
             }
             
             THROW (ArgExc, "Cannot find CTL module \"" << moduleName << "\".");
-            return ""; 
+            return ""; // return to prevent a warning with some compilers.
         }
         
 
@@ -277,7 +277,7 @@ Interpreter::findModule (const string& moduleName)
     }
 
     THROW (ArgExc, "Cannot find CTL module \"" << moduleName << "\".");
-    return "";
+    return ""; // return to prevent a warning with some compilers.
 }
 
 void
@@ -443,7 +443,12 @@ Interpreter::loadModuleRecursive (const string &moduleName, const string &fileNa
 	return;
     }
     
-    string realFileName = fileName.empty() ? findModule (moduleName) : fileName;
+	string realFileName;
+	if(fileName.empty() && !moduleName.empty())
+		realFileName = findModule (moduleName);
+	else
+		realFileName = fileName;
+
 
 	_loadModule(moduleName, realFileName, moduleSource);
 }
